@@ -1,6 +1,6 @@
-<h1 align="center">🤖 ChatBot - Projeto de ADS</h1>
+<h1 align="center">🤖 ChatBot - SmartNove</h1>
 
-<p>Este repositório contém o desenvolvimento de um ChatBot voltado para fins educacionais, como parte da matéria Planejamento em Informática (aula de Sexta-feira | Turma 17) - Professor Felipe Santos de Jesus</p>
+<p>Este repositório contém o desenvolvimento de um ChatBot voltado para fins educacionais, como parte do curso de Análise e Desenvolvimento de Sistemas - matéria Planejamento em Informática (UNINOVE | Turma 17 | aula de Sexta-feira) — Professor Felipe Santos de Jesus</p>
 <p>Link dos Materiais: https://bit.ly/42RVzhV</p>
 <p>Entrega Final: 30/05/2025 ⚠</p>
 <h2>📌 Objetivo</h2>
@@ -9,7 +9,7 @@ O projeto tem como objetivo desenvolver um ChatBot funcional capaz de responder 
 
 <h2>🛠️ Tecnologias Utilizadas</h2>
 
-    Python
+    Python (para desenvolver o chatbot)
 
     HTML/CSS/JavaScript (para interface web)
 
