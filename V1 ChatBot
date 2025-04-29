@@ -1,0 +1,38 @@
+import pandas as pd
+import numpy as np
+
+# DataFrame com perguntas e respostas
+dados = {
+    'pergunta': [
+        'olá', 'como você está?', 'qual é o seu nome?', 'o que você faz?', 'tchau'
+    ],
+    'resposta': [
+        ['Olá! Como posso ajudar?', 'Oi! Tudo bem?'],
+        ['Estou funcionando perfeitamente! E você?', 'Muito bem, obrigado por perguntar!'],
+        ['Eu sou um chatbot criado com Python.', 'Pode me chamar de PyBot.'],
+        ['Estou aqui para responder suas perguntas.', 'Sou um assistente virtual.'],
+        ['Tchau! Até mais!', 'Adeus! Volte sempre.']
+    ]
+}
+
+df = pd.DataFrame(dados)
+
+def responder(pergunta_usuario):
+    pergunta_usuario = pergunta_usuario.lower().strip()
+
+    for idx, linha in df.iterrows():
+        if pergunta_usuario == linha['pergunta']:
+            return np.random.choice(linha['resposta'])
+
+    return "Desculpe, não entendi sua pergunta."
+
+# Loop de interação com o usuário
+print("Chatbot iniciado! Digite 'sair' para encerrar.")
+while True:
+    user_input = input("Você: ")
+    if user_input.lower() == 'sair':
+        print("Chatbot: Até a próxima!")
+        break
+
+    resposta = responder(user_input)
+    print(f"Chatbot: {resposta}")
