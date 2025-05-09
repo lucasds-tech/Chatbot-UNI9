@@ -35,5 +35,5 @@ O projeto tem como objetivo desenvolver um ChatBot funcional capaz de responder 
 |  Lucas       | Dev FrontEnd        | Criação da Interface Web, integração com API do Bot, realização de testes e manutenção              |
 |  Vinicius    | Dev BackEnd         | Criação da lógica do bot, conexão com banco de dados e manuais de uso                               |
 |  Manuella    | Dev BackEnd         | Criação da lógica do bot, conexão com banco de dados e manuais de uso                               |
-|  Davi        | Dev Terinamento     | Estruturação de perguntas/respostas, limpeza de dados, treinamento do modelo e realização de testes |
+|  Davi        | Dev Treinamento     | Estruturação de perguntas/respostas, limpeza de dados, treinamento do modelo e realização de testes |
 
