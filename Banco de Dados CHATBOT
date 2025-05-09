@@ -1,0 +1,72 @@
+import sqlite3
+
+# Conectar ao banco de dados
+conn = sqlite3.connect('unismart.db')
+cursor = conn.cursor()
+
+# Criar tabela FAQ
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS faq (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        pergunta TEXT UNIQUE,
+        resposta TEXT
+    )
+''')
+
+# Criar tabela Serviços
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS servicos (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        nome TEXT,
+        preco REAL
+    )
+''')
+
+
+faq_data = [
+    # Saudações
+    ('oi', 'Olá! Bem-vindo à UniSmart, como posso ajudar?'),
+    ('olá', 'Olá! Bem-vindo à UniSmart, como posso ajudar?'),
+    ('opa', 'E aí! Tudo certo? Como posso te ajudar?'),
+    ('e aí', 'Olá! Que bom te ver por aqui. Como posso ajudar?'),
+    ('eai', 'Oi! Como posso te ajudar hoje?'),
+    ('bom dia', 'Bom dia! Pronto para ajudar no que precisar.'),
+    ('boa tarde', 'Boa tarde! Como posso ajudar?'),
+    ('boa noite', 'Boa noite! Em que posso ser útil?'),
+
+    # Informações
+    ('qual é o seu nome?', 'Sou o assistente virtual da UniSmart.'),
+    ('quem é você?', 'Sou o UniSmartBot, seu assistente de suporte tecnológico!'),
+    ('o que você faz?', 'Ofereço informações sobre nossos serviços de suporte técnico.'),
+    ('quais serviços vocês oferecem?', 'Temos manutenção, suporte remoto, redes e muito mais.'),
+
+    # Localização
+    ('onde fica o laboratório?', 'Nos fundos da empresa, ao lado da sala do CEO.'),
+    ('onde é o laboratório?', 'Fica nos fundos, perto da sala da diretoria.'),
+    ('localização do laboratório', 'Está no setor técnico, próximo ao almoxarifado.'),
+
+    # Encerramento
+    ('tchau', 'Tchau! Volte sempre que precisar.'),
+    ('até mais', 'Até a próxima! Foi um prazer ajudar.'),
+    ('falou', 'Falou! Qualquer coisa é só chamar.')
+]
+
+# Serviços
+servicos_data = [
+    ('Formatação e otimização de PC', 150.00),
+    ('Limpeza física completa de computador', 80.00),
+    ('Suporte remoto (até 1h)', 60.00),
+    ('Instalação de impressora / periféricos', 70.00),
+    ('Configuração de rede local / Wi-Fi', 120.00),
+    ('Consultoria em segurança digital', 200.00),
+    ('Manutenção preventiva empresarial (mensal)', 600.00),
+    ('Treinamento básico para funcionários', 250.00)
+]
+
+# Inserir dados
+cursor.executemany('INSERT OR IGNORE INTO faq (pergunta, resposta) VALUES (?, ?)', faq_data)
+cursor.executemany('INSERT INTO servicos (nome, preco) VALUES (?, ?)', servicos_data)
+
+# Finalizar
+conn.commit()
+conn.close()
