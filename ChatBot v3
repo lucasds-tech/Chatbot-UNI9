@@ -1,0 +1,125 @@
+import os
+import sqlite3
+import difflib
+
+def limpar_tela():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+def responder(pergunta_usuario):
+    pergunta_usuario = pergunta_usuario.lower().strip()
+
+    conn = sqlite3.connect('unismart.db')
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT resposta FROM faq WHERE pergunta = ?", (pergunta_usuario,))
+    resultado = cursor.fetchone()
+
+    if resultado:
+        conn.close()
+        return resultado[0]
+
+    if "preço" in pergunta_usuario or "quanto" in pergunta_usuario or "custa" in pergunta_usuario:
+        cursor.execute("SELECT nome, preco FROM servicos")
+        servicos = cursor.fetchall()
+        for nome, preco in servicos:
+            if nome.lower().split()[0] in pergunta_usuario:
+                conn.close()
+                return f"O serviço '{nome}' custa R${preco:.2f}."
+
+    conn.close()
+    return "Desculpe, não encontrei uma resposta para isso. Deseja falar com um atendente?"
+
+def exibir_menu():
+    print("\n📋 MENU DE OPÇÕES UniSmart (digite o nome da opção):")
+    print("- serviços   → Ver lista de serviços")
+    print("- preços     → Ver preços dos serviços")
+    print("- avaliação  → Avaliar o atendimento de 1 a 5")
+    print("- funções    → Saber o que o chatbot faz")
+    print("- perguntar  → Fazer uma pergunta manual")
+    print("- sair       → Encerrar o atendimento")
+
+def listar_servicos():
+    conn = sqlite3.connect('unismart.db')
+    cursor = conn.cursor()
+    cursor.execute("SELECT nome FROM servicos")
+    servicos = cursor.fetchall()
+    conn.close()
+
+    print("\n🔧 Serviços disponíveis:")
+    for i, (nome,) in enumerate(servicos, start=1):
+        print(f"{i}. {nome}")
+
+def listar_precos():
+    conn = sqlite3.connect('unismart.db')
+    cursor = conn.cursor()
+    cursor.execute("SELECT nome, preco FROM servicos")
+    servicos = cursor.fetchall()
+    conn.close()
+
+    print("\n💰 Tabela de Preços:")
+    for nome, preco in servicos:
+        print(f"- {nome}: R${preco:.2f}")
+
+def avaliar_atendimento():
+    while True:
+        try:
+            nota = int(input("Por favor, avalie nosso atendimento de 1 (péssimo) a 5 (excelente): "))
+            if nota < 1 or nota > 5:
+                print("Nota inválida. Digite um número de 1 a 5.")
+                continue
+            break
+        except ValueError:
+            print("Entrada inválida. Digite um número.")
+
+    conn = sqlite3.connect('unismart.db')
+    cursor = conn.cursor()
+    cursor.execute("CREATE TABLE IF NOT EXISTS avaliacoes (id INTEGER PRIMARY KEY AUTOINCREMENT, nota INTEGER NOT NULL, data_hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP)")
+    cursor.execute("INSERT INTO avaliacoes (nota) VALUES (?)", (nota,))
+    conn.commit()
+    conn.close()
+
+    mensagens = {
+        1: "Sentimos muito pela sua experiência. Vamos melhorar!",
+        2: "Lamentamos não ter atingido suas expectativas. Obrigado pelo feedback.",
+        3: "Agradecemos sua avaliação. Estamos sempre buscando melhorar!",
+        4: "Muito obrigado! Ficamos felizes que tenha gostado.",
+        5: "😍 Uau! Agradecemos imensamente sua avaliação máxima!"
+    }
+    print("UniSmartBot:", mensagens[nota])
+
+opcoes_validas = {
+    'serviços': 'serviços',
+    'preços': 'preços',
+    'avaliação': 'avaliação',
+    'funções': 'funções',
+    'perguntar': 'perguntar',
+    'sair': 'sair'
+}
+
+print("🤖 UniSmartBot iniciado!")
+while True:
+    limpar_tela()
+    exibir_menu()
+    escolha_raw = input("\nDigite sua escolha: ").lower().strip()
+
+    sugestao = difflib.get_close_matches(escolha_raw, opcoes_validas.keys(), n=1, cutoff=0.6)
+    escolha = sugestao[0] if sugestao else escolha_raw
+
+    if escolha == 'sair':
+        print("UniSmartBot: Até logo! Ficamos à disposição.")
+        break
+    elif escolha == 'serviços':
+        listar_servicos()
+    elif escolha == 'preços':
+        listar_precos()
+    elif escolha == 'avaliação':
+        avaliar_atendimento()
+    elif escolha == 'funções':
+        print(responder("o que você faz?"))
+    elif escolha == 'perguntar':
+        pergunta = input("Digite sua pergunta: ")
+        print("UniSmartBot:", responder(pergunta))
+    else:
+        print(f"Opção '{escolha_raw}' não reconhecida.")
+    
+    input("\nPressione Enter para voltar ao menu...")
