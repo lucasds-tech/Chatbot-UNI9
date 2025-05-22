@@ -25,7 +25,7 @@ def responder(pergunta_usuario):
     return "Desculpe, não encontrei uma resposta para isso. Deseja falar com um atendente?"
 
 def exibir_menu():
-    print("\n📋 MENU DE OPÇÕES UniSmart:")
+    print("\nMENU DE OPÇÕES UniSmart:")
     print("1. Ver lista de serviços")
     print("2. Ver preços dos serviços")
     print("3. Saber onde fica um setor (ex: laboratório)")
@@ -40,7 +40,7 @@ def listar_servicos():
     servicos = cursor.fetchall()
     conn.close()
 
-    print("\n🔧 Serviços disponíveis:")
+    print("\nServiços disponíveis:")
     for i, (nome,) in enumerate(servicos, start=1):
         print(f"{i}. {nome}")
 
@@ -56,7 +56,7 @@ def listar_precos():
         print(f"- {nome}: R${preco:.2f}")
 
 # Loop do chatbot
-print("🤖 UniSmartBot iniciado!")
+print("UniSmartBot iniciado!")
 while True:
     exibir_menu()
     escolha = input("\nDigite o número da opção desejada: ")

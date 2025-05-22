@@ -30,13 +30,13 @@ def responder(pergunta_usuario):
     return "Desculpe, não encontrei uma resposta para isso. Deseja falar com um atendente?"
 
 def exibir_menu():
-    print("\n📋 MENU DE OPÇÕES UniSmart (digite o nome da opção):")
-    print("- serviços   → Ver lista de serviços")
-    print("- preços     → Ver preços dos serviços")
-    print("- avaliação  → Avaliar o atendimento de 1 a 5")
-    print("- funções    → Saber o que o chatbot faz")
-    print("- perguntar  → Fazer uma pergunta manual")
-    print("- sair       → Encerrar o atendimento")
+    print("\nMENU DE OPÇÕES UniSmart (digite o nome da opção):")
+    print("- serviços   -> Ver lista de serviços")
+    print("- preços     -> Ver preços dos serviços")
+    print("- avaliação  -> Avaliar o atendimento de 1 a 5")
+    print("- funções    -> Saber o que o chatbot faz")
+    print("- perguntar  -> Fazer uma pergunta manual")
+    print("- sair       -> Encerrar o atendimento")
 
 def listar_servicos():
     conn = sqlite3.connect('unismart.db')
@@ -45,9 +45,13 @@ def listar_servicos():
     servicos = cursor.fetchall()
     conn.close()
 
-    print("\n🔧 Serviços disponíveis:")
-    for i, (nome,) in enumerate(servicos, start=1):
-        print(f"{i}. {nome}")
+    print("\nServiços disponíveis:")
+    servicos_unicos = set()
+    for (nome,) in servicos:
+        if nome not in servicos_unicos:
+            print(f"- {nome}")
+            servicos_unicos.add(nome)
+
 
 def listar_precos():
     conn = sqlite3.connect('unismart.db')
@@ -56,7 +60,7 @@ def listar_precos():
     servicos = cursor.fetchall()
     conn.close()
 
-    print("\n💰 Tabela de Preços:")
+    print("\nTabela de Preços:")
     for nome, preco in servicos:
         print(f"- {nome}: R${preco:.2f}")
 
@@ -83,7 +87,7 @@ def avaliar_atendimento():
         2: "Lamentamos não ter atingido suas expectativas. Obrigado pelo feedback.",
         3: "Agradecemos sua avaliação. Estamos sempre buscando melhorar!",
         4: "Muito obrigado! Ficamos felizes que tenha gostado.",
-        5: "😍 Uau! Agradecemos imensamente sua avaliação máxima!"
+        5: "Uau! Agradecemos imensamente sua avaliação máxima!"
     }
     print("UniSmartBot:", mensagens[nota])
 
@@ -93,10 +97,9 @@ opcoes_validas = {
     'avaliação': 'avaliação',
     'funções': 'funções',
     'perguntar': 'perguntar',
-    'sair': 'sair'
 }
 
-print("🤖 UniSmartBot iniciado!")
+print("UniSmartBot iniciado!")
 while True:
     limpar_tela()
     exibir_menu()

@@ -1,10 +1,10 @@
 import sqlite3
 
-# Conectar ao banco de dados
+# conectando ao banco de dados
 conn = sqlite3.connect('unismart.db')
 cursor = conn.cursor()
 
-# Criar tabela FAQ
+# criar tabela FAQ
 cursor.execute('''
     CREATE TABLE IF NOT EXISTS faq (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -13,11 +13,11 @@ cursor.execute('''
     )
 ''')
 
-# Criar tabela Serviços
+# criar tabela serviços
 cursor.execute('''
     CREATE TABLE IF NOT EXISTS servicos (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        nome TEXT,
+        nome TEXT UNIQUE,
         preco REAL
     )
 ''')
@@ -63,9 +63,10 @@ servicos_data = [
     ('Treinamento básico para funcionários', 250.00)
 ]
 
-# Inserir dados
+# Inserir e ignorando duplicação possiveis dados
 cursor.executemany('INSERT OR IGNORE INTO faq (pergunta, resposta) VALUES (?, ?)', faq_data)
-cursor.executemany('INSERT INTO servicos (nome, preco) VALUES (?, ?)', servicos_data)
+cursor.executemany('INSERT OR IGNORE INTO servicos (nome, preco) VALUES (?, ?)', servicos_data)
+
 
 # Finalizar
 conn.commit()

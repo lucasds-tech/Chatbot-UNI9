@@ -21,11 +21,12 @@ cursor.execute('''
 ''')
 
 cursor.execute('''
-               CREATE TABLE  avaliacoes (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    nota INTEGER NOT NULL,
-    data_hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+    CREATE TABLE IF NOT EXISTS avaliacoes (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        nome TEXT NOT NULL,
+        curso TEXT NOT NULL,
+        avaliacao INTEGER NOT NULL
+    );
 ''')
 
 
@@ -65,7 +66,7 @@ servicos_data = [
 ]
 
 cursor.executemany('INSERT OR IGNORE INTO faq (pergunta, resposta) VALUES (?, ?)', faq_data)
-cursor.executemany('INSERT INTO servicos (nome, preco) VALUES (?, ?)', servicos_data)
+cursor.executemany('INSERT OR IGNORE INTO servicos (nome, preco) VALUES (?, ?)', servicos_data)
 
 conn.commit()
 conn.close()
