@@ -9,15 +9,17 @@ O projeto tem como objetivo desenvolver um ChatBot funcional capaz de responder 
 
 <h2>🛠️ Tecnologias Utilizadas</h2>
 
-    Python (para desenvolver o chatbot)
+    Python (desenvolvido com Flask e SQLite)
 
-    HTML/CSS/JavaScript (para interface web)
+    HTML/CSS/JavaScript (interface web)
 
-    Git/GitHub (para versionamento e colaboração)
+    Git/GitHub (versionamento e colaboração)
 
 <h2>🧠 Funcionalidades Previstas</h2>
 
-- Responder perguntas frequentes
+- Recebe perguntas e responde automaticamente com base em uma base de conhecimento
+  
+- API RESTful com endpoints para consultar e adicionar perguntas e respostas
 
 - Treinamento com base em perguntas e respostas personalizadas
 
@@ -36,4 +38,28 @@ O projeto tem como objetivo desenvolver um ChatBot funcional capaz de responder 
 |  Vinicius    | Dev BackEnd         | Criação da lógica do bot, conexão com banco de dados, estruturas das tabelas e manuais de uso       |
 |  Manuella    | Dev BackEnd         | Criação da lógica do bot, conexão com banco de dados e manuais de uso                               |
 |  Davi        | Dev Treinamento     | Responsável pela narração, roteiro e edição deste vídeo.                                            |
+```
 
+## 🚀 Como rodar o projeto localmente
+
+### **Pré-requisitos:**
+- Python 3
+- Pip
+
+### **1. Clone o repositório:**
+```bash
+git clone https://github.com/lucasds-tech/Chatbot-UNI9.git
+cd Chatbot-UNI9
+```
+
+### **2. Instale as dependências:**
+```bash
+pip install Flask
+pip install flask-cors
+```
+
+### **3. Execute o banco de dados e aplicação. Logo em seguida, teste em sua IDE de preferência :)**
+```bash
+databaseChatbot
+database_v2
+python app.py
