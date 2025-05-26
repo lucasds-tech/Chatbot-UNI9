@@ -54,6 +54,7 @@ cd Chatbot-UNI9
 
 ### **2. Instale as dependências:**
 ```bash
+pip install -r requirements.txt
 pip install Flask
 pip install flask-cors
 ```
