@@ -110,5 +110,10 @@ def chat():
     # Retorna isso caso algo não seja encontrado
     return jsonify({'reply': "Desculpe, não entendi. Digite 'menu' para ver as opções disponíveis."})
 
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    import os
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
+#   app.run(debug=True)
+
