@@ -11,7 +11,7 @@ function addMessage(sender, text) {
         const icon = document.createElement('div');
         icon.className = 'icon';
         const img = document.createElement('img');
-        img.src = '/uninoveProject/backend/static/assets/images/icon.png';
+        img.src = '/static/assets/images/icon.png';
         img.alt = 'icon';
         icon.appendChild(img);
         msg.appendChild(icon);
@@ -35,7 +35,7 @@ async function sendMessage() {
     input.value = '';
 
     try {
-        const res = await fetch('http://localhost:5000/chat', {
+        const res = await fetch('/chat', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ message })
