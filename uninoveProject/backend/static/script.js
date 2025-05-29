@@ -11,7 +11,7 @@ function addMessage(sender, text) {
         const icon = document.createElement('div');
         icon.className = 'icon';
         const img = document.createElement('img');
-        img.src = './assets/images/icon.png';
+        img.src = '/uninoveProject/backend/static/assets/images/icon.png';
         img.alt = 'icon';
         icon.appendChild(img);
         msg.appendChild(icon);

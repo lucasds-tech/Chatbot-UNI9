@@ -1,10 +1,9 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 import os
 import sqlite3
-import datetime
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static', template_folder='templates')
 CORS(app)
 
 DB_PATH = 'unismart.db'
@@ -48,6 +47,11 @@ def salvar_avaliacao(nota):
     cursor.execute("INSERT INTO avaliacoes (nota) VALUES (?)", (nota,))
     conn.commit()
     conn.close()
+
+# serve para acionar o index
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 @app.route('/chat', methods=['POST'])
 def chat():
