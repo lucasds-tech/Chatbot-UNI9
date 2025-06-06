@@ -1,0 +1,17 @@
+'menu', 'opções', 'opcao', 'opções do menu'
+
+'serviços', 'ver serviços', 'lista de serviços', 'quais serviços'
+
+'preço', 'quanto custa', 'quanto é'
+
+'funções', 'o que você faz?', 'o que você faz'
+
+#
+
+'oi', 'olá', 'opa', 'e aí', 'eai', 'bom dia', boa tarde', boa noite'
+
+'qual é o seu nome?', 'quem é você?', 'o que você faz?', 'quais serviços vocês oferecem?'
+
+'onde fica o laboratório?', 'onde é o laboratório?', 'localização do laboratório'
+
+'tchau', 'até mais', 'falou'
